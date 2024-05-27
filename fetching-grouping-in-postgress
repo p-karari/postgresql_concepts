@@ -1,0 +1,115 @@
+### Filtering in PostgreSQL: Summary Notes
+
+Filtering data in PostgreSQL is done using the `WHERE` clause, which allows you to specify conditions that must be met for the rows to be included in the result set. Here are the key points to remember about filtering in PostgreSQL:
+
+#### Basic Syntax
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+
+#### Common Filtering Conditions
+- **Equality:** `=` 
+  ```sql
+  SELECT * FROM employees WHERE department = 'Sales';
+  ```
+- **Inequality:** `!=` or `<>`
+  ```sql
+  SELECT * FROM employees WHERE department != 'Sales';
+  ```
+- **Greater Than / Less Than:** `>` / `<`
+  ```sql
+  SELECT * FROM employees WHERE salary > 50000;
+  ```
+- **Greater Than or Equal To / Less Than or Equal To:** `>=` / `<=`
+  ```sql
+  SELECT * FROM employees WHERE hire_date >= '2020-01-01';
+  ```
+
+#### Combining Conditions
+- **AND:** Both conditions must be true.
+  ```sql
+  SELECT * FROM employees WHERE department = 'Sales' AND salary > 50000;
+  ```
+- **OR:** At least one of the conditions must be true.
+  ```sql
+  SELECT * FROM employees WHERE department = 'Sales' OR department = 'Marketing';
+  ```
+- **NOT:** Reverses the condition.
+  ```sql
+  SELECT * FROM employees WHERE NOT department = 'Sales';
+  ```
+
+#### Using Wildcards with `LIKE`
+- **%:** Represents zero or more characters.
+  ```sql
+  SELECT * FROM employees WHERE name LIKE 'A%';
+  ```
+- **_ :** Represents a single character.
+  ```sql
+  SELECT * FROM employees WHERE name LIKE 'A_n';
+  ```
+
+#### Filtering with `IN`
+- Specifies multiple possible values for a column.
+  ```sql
+  SELECT * FROM employees WHERE department IN ('Sales', 'Marketing', 'HR');
+  ```
+
+#### Filtering with `BETWEEN`
+- Checks if a value is within a range.
+  ```sql
+  SELECT * FROM employees WHERE salary BETWEEN 40000 AND 60000;
+  ```
+
+#### Filtering with `IS NULL` and `IS NOT NULL`
+- Checks for `NULL` values.
+  ```sql
+  SELECT * FROM employees WHERE manager_id IS NULL;
+  ```
+  - Checks for non-`NULL` values.
+  ```sql
+  SELECT * FROM employees WHERE manager_id IS NOT NULL;
+  ```
+
+#### Filtering with Aggregate Functions
+- Use `HAVING` for filtering with aggregate functions.
+  ```sql
+  SELECT department, COUNT(*)
+  FROM employees
+  GROUP BY department
+  HAVING COUNT(*) > 10;
+  ```
+
+### Practical Examples
+
+1. **Find all employees in the 'Sales' department with a salary greater than 50,000:**
+   ```sql
+   SELECT * FROM employees WHERE department = 'Sales' AND salary > 50000;
+   ```
+
+2. **Retrieve employees hired between 2018 and 2020:**
+   ```sql
+   SELECT * FROM employees WHERE hire_date BETWEEN '2018-01-01' AND '2020-12-31';
+   ```
+
+3. **List employees whose names start with 'A':**
+   ```sql
+   SELECT * FROM employees WHERE name LIKE 'A%';
+   ```
+
+4. **Find employees who do not have a manager:**
+   ```sql
+   SELECT * FROM employees WHERE manager_id IS NULL;
+   ```
+
+5. **Get the departments with more than 10 employees:**
+   ```sql
+   SELECT department, COUNT(*)
+   FROM employees
+   GROUP BY department
+   HAVING COUNT(*) > 10;
+   ```
+
+By understanding and utilizing these filtering techniques, you can effectively query and manipulate data within your PostgreSQL databases.
