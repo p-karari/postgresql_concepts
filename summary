@@ -1,0 +1,223 @@
+### PostgreSQL Syntax Summary with Examples
+
+#### 1. **Basic Query**
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+Example:
+```sql
+SELECT name, salary
+FROM employees
+WHERE department = 'Sales';
+```
+
+#### 2. **Creating a Database**
+```sql
+CREATE DATABASE database_name;
+```
+Example:
+```sql
+CREATE DATABASE company_db;
+```
+
+#### 3. **Creating a Table**
+```sql
+CREATE TABLE table_name (
+    column1 datatype PRIMARY KEY,
+    column2 datatype,
+    column3 datatype,
+    ...
+);
+```
+Example:
+```sql
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    hire_date DATE,
+    salary NUMERIC
+);
+```
+
+#### 4. **Inserting Data**
+```sql
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+```
+Example:
+```sql
+INSERT INTO employees (name, department, hire_date, salary)
+VALUES ('John Doe', 'Sales', '2022-01-15', 60000);
+```
+
+#### 5. **Updating Data**
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2
+WHERE condition;
+```
+Example:
+```sql
+UPDATE employees
+SET salary = 65000
+WHERE name = 'John Doe';
+```
+
+#### 6. **Deleting Data**
+```sql
+DELETE FROM table_name
+WHERE condition;
+```
+Example:
+```sql
+DELETE FROM employees
+WHERE name = 'John Doe';
+```
+
+#### 7. **Filtering Data**
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+Example:
+```sql
+SELECT name, salary
+FROM employees
+WHERE department = 'Sales' AND salary > 50000;
+```
+
+#### 8. **Sorting Data**
+```sql
+SELECT column1, column2
+FROM table_name
+ORDER BY column1 [ASC|DESC];
+```
+Example:
+```sql
+SELECT name, salary
+FROM employees
+ORDER BY salary DESC;
+```
+
+#### 9. **Aggregate Functions**
+```sql
+SELECT AGGREGATE_FUNCTION(column)
+FROM table_name
+WHERE condition;
+```
+Example:
+```sql
+SELECT AVG(salary)
+FROM employees
+WHERE department = 'Sales';
+```
+
+#### 10. **Grouping Data**
+```sql
+SELECT column1, AGGREGATE_FUNCTION(column2)
+FROM table_name
+WHERE condition
+GROUP BY column1;
+```
+Example:
+```sql
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department;
+```
+
+#### 11. **Having Clause**
+```sql
+SELECT column1, AGGREGATE_FUNCTION(column2)
+FROM table_name
+WHERE condition
+GROUP BY column1
+HAVING condition;
+```
+Example:
+```sql
+SELECT department, COUNT(*)
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 10;
+```
+
+#### 12. **Joining Tables**
+```sql
+SELECT columns
+FROM table1
+JOIN table2 ON table1.column = table2.column;
+```
+Example:
+```sql
+SELECT employees.name, departments.department_name
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id;
+```
+
+#### 13. **Subqueries**
+```sql
+SELECT column1
+FROM table_name
+WHERE column2 IN (SELECT column2 FROM another_table WHERE condition);
+```
+Example:
+```sql
+SELECT name
+FROM employees
+WHERE department_id IN (SELECT department_id FROM departments WHERE location = 'New York');
+```
+
+#### 14. **Creating an Index**
+```sql
+CREATE INDEX index_name
+ON table_name (column1, column2);
+```
+Example:
+```sql
+CREATE INDEX idx_employee_name
+ON employees (name);
+```
+
+#### 15. **Dropping a Table**
+```sql
+DROP TABLE table_name;
+```
+Example:
+```sql
+DROP TABLE employees;
+```
+
+#### 16. **Altering a Table**
+```sql
+ALTER TABLE table_name
+ADD column_name datatype;
+```
+Example:
+```sql
+ALTER TABLE employees
+ADD email VARCHAR(100);
+```
+
+#### 17. **Transactional Control**
+```sql
+BEGIN;
+-- SQL statements
+COMMIT;
+
+ROLLBACK;  -- if you need to undo the transaction
+```
+Example:
+```sql
+BEGIN;
+UPDATE employees SET salary = 70000 WHERE name = 'John Doe';
+COMMIT;
+```
+
+### Summary
+
+PostgreSQL provides a powerful SQL interface with many capabilities for managing and querying data. The examples above cover the most common SQL operations, from creating and managing tables to complex queries involving joins and subqueries. These examples provide a foundation for understanding and utilizing PostgreSQL effectively.
